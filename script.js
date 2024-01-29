@@ -5,8 +5,8 @@ const randomize = document.querySelector(".randomize");
 const story = document.querySelector(".story");
 
 function randomValueFromArray(array) {
-  const random = Math.floor(Math.random() * array.length);
-  return array[random];
+  const random = array[Math.floor(Math.random() * array.length)];
+  return random;
 }
 
 // 2. RAW TEXT STRINGS
@@ -19,29 +19,41 @@ let insertX = ["Willy the Goblin", "Big Daddy", "Father Christmas"];
 let insertY = ["the soup kitchen", "Disneyland", "the White House"];
 
 let insertZ = [
-  "spontaneously ",
-  "combusted",
+  "spontaneously combusted ",
   "melt on the puddle on the sidewalk",
   "turn into a slug and crawled away",
 ];
 
-// 3. EVENT LISTENER AND PARTIAL FUNCTION DEFINITION
-
-randomize.addEventListener('click', result);
-
+randomize.addEventListener("click", result);
 function result() {
-
-  if(customName.value !== '') {
+  if (customName.value !== "") {
     const name = customName.value;
-
+    newStory = newStory.replaceAll("Bob", name);
   }
 
-  if(document.getElementById("uk").checked) {
-    const weight = Math.round(300);
-    const temperature =  Math.round(94);
-
+  if (document.getElementById("uk").checked) {
+    const weight = Math.round(300 / 14) + "pounds";
+    const temperature = (Math.round(94 - 32) * 5) / 9 + "centigrade";
+    newStory = newStory.replaceAll("94 fahrenheit", temperature);
+    newStory = newStory.replaceAll("300 pounds", weight);
   }
 
-  story.textContent = ;
-  story.style.visibility = 'visible';
+  let newStory = storyText;
+
+  let xItem = randomValueFromArray(insertX);
+  let yItem = randomValueFromArray(insertY);
+  let zItem = randomValueFromArray(insertZ);
+
+  newStory = newStory.replaceAll(":insertx:", xItem);
+  newStory = newStory.replaceAll(":inserty:", yItem);
+  newStory = newStory.replaceAll(":insertz:", zItem);
+
+  // storyText = xItem;
+  // storyText = yItem;
+  // storyText = zItem;
+
+  story.textContent = newStory;
+  story.style.visibility = "visible";
+
+  // console.log(newStory);
 }
